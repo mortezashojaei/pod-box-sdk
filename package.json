@@ -1,0 +1,46 @@
+{
+  "name": "pod-box-sdk",
+  "version": "1.0.2",
+  "description": "PodBox Software Development Kit",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "rollup": "rollup -c",
+    "ci": "(npm run build && npm run rollup) & wait",
+    "prepublishOnly": "npm run ci && npm run rollup",
+    "preversion": "./preversion.sh",
+    "version": "./version.sh"
+  },
+  "browser": "dist/podBoxSDK.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mortezashojaei/pod-box-sdk.git"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "hook",
+    "scroll",
+    "DOM"
+  ],
+  "author": "Morteza Shojaei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mortezashojaei/pod-box-sdk/issues"
+  },
+  "homepage": "https://github.com/mortezashojaei/pod-box-sdk#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.15",
+    "jest": "^26.6.3",
+    "rollup": "^2.33.1",
+    "rollup-plugin-babel-minify": "^10.0.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.0.5"
+  }
+}
