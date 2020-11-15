@@ -1,8 +1,11 @@
-import { constants } from "./__constants__";
+import { constants, paramTypes } from "./__constants__";
 
 export const init = () => {
   try {
-    localStorage.setItem(constants.STORAGE_DATA_KEY, JSON.stringify(queryStringToJSON()));
+    localStorage.setItem(
+      constants.STORAGE_DATA_KEY,
+      JSON.stringify(queryStringToJSON())
+    );
     console.log("________PODBOX INITIALIZED SUCCESSFULLY !________");
   } catch (error) {
     console.log("ERROR IN PODBOX INIT", error);
@@ -19,7 +22,7 @@ function queryStringToJSON() {
     let key = pair[0];
     let value = decodeURIComponent(pair[1] || "");
 
-    if (key !== "") {
+    if (paramTypes.includes(key)) {
       if (result[key]) {
         if (Object.prototype.toString.call(result[key]) === "[object Array]") {
           result[key].push(value);
