@@ -8,8 +8,10 @@ export const getToken = async () => {
     return store[constants.TOKEN_KEY];
   } else {
     if (store[constants.REFRESH_TOKEN_KEY]) {
-      const token = await getFreshToken(store[constants.REFRESH_TOKEN_KEY]);
-      return token;
+      const data: {
+        access_token: string;
+      } = await getFreshToken(store[constants.REFRESH_TOKEN_KEY]);
+      return data.access_token;
     } else {
       throw new ReferenceError("Token and RefreshToken is undefinded");
     }
