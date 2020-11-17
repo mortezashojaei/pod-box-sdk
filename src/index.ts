@@ -3,6 +3,7 @@ import { getStoredData } from "./store";
 import { getFreshToken } from "./getFreshToken";
 import { getToken } from "./getToken";
 import { getUserInfo } from "./getUserInfo";
+import { handleClose } from "./handleClose";
 
 const PodBox = {
   init,
@@ -10,6 +11,7 @@ const PodBox = {
   getFreshToken,
   getToken,
   getUserInfo,
+  handleClose,
 };
 
 export default PodBox;

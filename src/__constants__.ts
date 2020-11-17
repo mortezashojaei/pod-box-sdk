@@ -7,10 +7,16 @@ export const constants = {
   TOKEN_KEY: "token",
   REFRESH_TOKEN_KEY: "refreshToken",
   CODE_VERIFIER_KEY: "code_verifier",
+  CLOSE_MODE_KEY: "closeMode",
+  CLOSE_MESSAGE_KEY: "closeMode",
+  CLOSE_ACTION_KEY: "closeMode",
 };
 
 export const paramTypes = [
   constants.TOKEN_KEY,
   constants.REFRESH_TOKEN_KEY,
   constants.CODE_VERIFIER_KEY,
+  constants.CLOSE_MODE_KEY,
+  constants.CLOSE_MESSAGE_KEY,
+  constants.CLOSE_ACTION_KEY,
 ];
