@@ -8,8 +8,8 @@ export const constants = {
   REFRESH_TOKEN_KEY: "refreshToken",
   CODE_VERIFIER_KEY: "code_verifier",
   CLOSE_MODE_KEY: "closeMode",
-  CLOSE_MESSAGE_KEY: "closeMode",
-  CLOSE_ACTION_KEY: "closeMode",
+  CLOSE_MESSAGE_KEY: "closeMessage",
+  CLOSE_ACTION_KEY: "closeAction",
 };
 
 export const paramTypes = [
