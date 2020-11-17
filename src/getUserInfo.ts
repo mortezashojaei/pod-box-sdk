@@ -5,7 +5,7 @@ import { constants } from "./__constants__";
 export const getUserInfo = async () => {
   const token = await getToken();
   const userInfo = await axios.get(
-    `${constants.POD_BASE_URL}/nzh/getUserProfile/`,
+    `${constants.POD_BASE_URL}srv/core/nzh/getUserProfile/`,
     {
       headers: {
         _token_: token,

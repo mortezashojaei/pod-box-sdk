@@ -1,5 +1,5 @@
 import { init } from "./init";
-import { getStoredData } from "./getStoredData";
+import { getStoredData } from "./store";
 import { getFreshToken } from "./getFreshToken";
 import { getToken } from "./getToken";
 import { getUserInfo } from "./getUserInfo";

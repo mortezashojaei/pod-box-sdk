@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getStoredData } from "./getStoredData";
+import { getStoredData } from "./store";
 import { constants } from "./__constants__";
 
 export const getFreshToken = async (refresh_token) => {
@@ -7,7 +7,7 @@ export const getFreshToken = async (refresh_token) => {
     const code_verifier = getStoredData()[constants.CODE_VERIFIER_KEY];
     if (code_verifier) {
       const data = await axios.post(
-        `${constants.POD_BASE_URL}/oauth2/token`,
+        `${constants.POD_AUTH_BASE_URL}/oauth2/token`,
         null,
         {
           headers: {
