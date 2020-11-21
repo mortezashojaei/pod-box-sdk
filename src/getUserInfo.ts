@@ -1,6 +1,6 @@
-import axios from "axios";
-import { getToken } from "./auth";
-import { constants } from "./__constants__";
+import axios from 'axios';
+import { getToken } from './auth';
+import { constants } from './__constants__';
 
 export const getInfo = async () => {
   const token = await getToken();
@@ -11,7 +11,7 @@ export const getInfo = async () => {
         _token_: token,
         _token_issuer_: constants.TOKEN_ISSUER,
       },
-    }
+    },
   );
   return userInfo;
 };

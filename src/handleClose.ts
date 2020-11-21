@@ -1,11 +1,11 @@
-import { constants } from "./__constants__";
+import { constants } from './__constants__';
 
 export const handleClose = ({
   closeMode,
   closeMessage,
   closeAction,
 }: {
-  closeMode: "success" | "error";
+  closeMode: 'success' | 'error';
   closeMessage?: string;
   closeAction?: string;
 }) => {

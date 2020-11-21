@@ -1,8 +1,10 @@
-import { constants, paramTypes } from "./__constants__";
+import { constants, paramTypes } from './__constants__';
 
 export const getStoredData = () => {
   try {
-    const data = JSON.parse(localStorage.getItem(constants.STORAGE_DATA_KEY));
+    const data = JSON.parse(
+      localStorage.getItem(constants.STORAGE_DATA_KEY),
+    );
     return data;
   } catch (error) {
     throw error;
@@ -22,7 +24,7 @@ export const addNewItemToStore = ({
       JSON.stringify({
         ...getStoredData(),
         [key]: value,
-      })
+      }),
     );
   } else {
     throw Error;
