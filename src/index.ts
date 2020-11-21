@@ -1,6 +1,6 @@
 import { init } from './init';
 import { getStoredData } from './store';
-import { user } from './getUserInfo';
+import { user } from './user';
 import { handleClose } from './handleClose';
 import { auth } from './auth';
 
