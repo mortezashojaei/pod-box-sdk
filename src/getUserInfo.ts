@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "./getToken";
+import { getToken } from "./auth";
 import { constants } from "./__constants__";
 
 export const getUserInfo = async () => {

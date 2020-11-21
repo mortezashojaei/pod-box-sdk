@@ -10,6 +10,7 @@ export const constants = {
   CLOSE_MODE_KEY: "closeMode",
   CLOSE_MESSAGE_KEY: "closeMessage",
   CLOSE_ACTION_KEY: "closeAction",
+  REDIRECT_URL_KEY: "redirect_url",
 };
 
 export const paramTypes = [
@@ -19,4 +20,5 @@ export const paramTypes = [
   constants.CLOSE_MODE_KEY,
   constants.CLOSE_MESSAGE_KEY,
   constants.CLOSE_ACTION_KEY,
+  constants.REDIRECT_URL_KEY,
 ];

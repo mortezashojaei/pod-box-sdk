@@ -1,17 +1,15 @@
 import { init } from "./init";
 import { getStoredData } from "./store";
-import { getFreshToken } from "./getFreshToken";
-import { getToken } from "./getToken";
 import { getUserInfo } from "./getUserInfo";
 import { handleClose } from "./handleClose";
+import { auth } from "./auth";
 
 const PodBox = {
   init,
   getStoredData,
-  getFreshToken,
-  getToken,
   getUserInfo,
   handleClose,
+  auth,
 };
 
 export default PodBox;

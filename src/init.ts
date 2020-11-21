@@ -1,14 +1,18 @@
+import { authInit, isLoggedIn } from "./auth";
+import { getStoredData } from "./store";
 import { constants, paramTypes } from "./__constants__";
 
-export const init = () => {
+export const init = async (config: ConfigType) => {
   try {
     localStorage.setItem(
       constants.STORAGE_DATA_KEY,
-      JSON.stringify(queryStringToJSON())
+      JSON.stringify({ ...getStoredData(), ...queryStringToJSON() })
     );
-    console.log("________PODBOX INITIALIZED SUCCESSFULLY !________");
+    if (!isLoggedIn()) {
+      authInit(config);
+    }
   } catch (error) {
-    console.log("ERROR IN PODBOX INIT", error);
+    console.error("ERROR IN PODBOX INIT", error);
   }
 };
 
