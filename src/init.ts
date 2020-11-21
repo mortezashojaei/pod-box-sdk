@@ -8,7 +8,7 @@ export const init = async (config: ConfigType) => {
       constants.STORAGE_DATA_KEY,
       JSON.stringify({ ...getStoredData(), ...queryStringToJSON() }),
     );
-    if (!isLoggedIn()) {
+    if (!isLoggedIn) {
       authInit(config);
     }
   } catch (error) {
