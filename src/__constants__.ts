@@ -6,6 +6,7 @@ export const constants = {
   TOKEN_ISSUER: '1',
   TOKEN_KEY: 'token',
   REFRESH_TOKEN_KEY: 'refreshToken',
+  EXPIRES_IN_KEY: 'expires_in',
   CODE_VERIFIER_KEY: 'code_verifier',
   CLOSE_MODE_KEY: 'closeMode',
   CLOSE_MESSAGE_KEY: 'closeMessage',

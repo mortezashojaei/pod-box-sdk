@@ -2,13 +2,13 @@ import axios from 'axios';
 import { addNewItemToStore, getStoredData } from './store';
 import { constants } from './__constants__';
 
-export const getFreshToken = async (refresh_token: string) => {
+export const refreshToken = async (refresh_token: string) => {
   try {
     const code_verifier = getStoredData()[
       constants.CODE_VERIFIER_KEY
     ];
     if (code_verifier) {
-      const data = await axios.post(
+      const data: TokenResultType = await axios.post(
         `${constants.POD_AUTH_BASE_URL}/oauth2/token`,
         null,
         {
@@ -24,7 +24,8 @@ export const getFreshToken = async (refresh_token: string) => {
           },
         },
       );
-      return data.data;
+      setSession(data);
+      return data.data.access_token;
     } else {
       throw ReferenceError('There is no code verifier');
     }
@@ -39,14 +40,11 @@ export const getToken = async () => {
     return store[constants.TOKEN_KEY];
   } else {
     if (store[constants.REFRESH_TOKEN_KEY]) {
-      const data: {
-        access_token: string;
-      } = await getFreshToken(store[constants.REFRESH_TOKEN_KEY]);
-      addNewItemToStore({
-        key: constants.TOKEN_KEY,
-        value: data.access_token,
-      });
-      return data.access_token;
+      const access_token = await refreshToken(
+        store[constants.REFRESH_TOKEN_KEY],
+      );
+
+      return access_token;
     } else {
       throw new ReferenceError(
         'Token and RefreshToken is undefinded',
@@ -55,12 +53,13 @@ export const getToken = async () => {
   }
 };
 
-export const handleAuthenticatingPage = async () => {
+export const handleAuthenticatingPage = async ({
+  onSuccess,
+  onError,
+}) => {
   let params = new URL(window.location.href).searchParams;
   const code = params.get('code');
-  const {
-    data,
-  }: { data: { access_token: string } } = await axios.post(
+  const data: TokenResultType = await axios.post(
     `${constants.POD_AUTH_BASE_URL}/oauth2/token`,
     null,
     {
@@ -77,10 +76,7 @@ export const handleAuthenticatingPage = async () => {
     },
   );
 
-  addNewItemToStore({
-    key: constants.TOKEN_KEY,
-    value: data.access_token,
-  });
+  setSession(data);
 };
 
 export async function authInit(config: ConfigType) {
@@ -147,8 +143,29 @@ export const isLoggedIn =
   getStoredData()[constants.TOKEN_KEY] &&
   getStoredData()[constants.REFRESH_TOKEN_KEY];
 
+const getCurrentDateInSeconds = () => Math.floor(Date.now() / 1000);
+
+const setSession = ({ data }: TokenResultType) => {
+  const { access_token, expires_in, refresh_token } = data;
+
+  addNewItemToStore({
+    key: constants.TOKEN_KEY,
+    value: access_token,
+  });
+
+  addNewItemToStore({
+    key: constants.REFRESH_TOKEN_KEY,
+    value: refresh_token,
+  });
+
+  addNewItemToStore({
+    key: constants.EXPIRES_IN_KEY,
+    value: getCurrentDateInSeconds() + expires_in,
+  });
+};
+
 export const auth = {
-  getFreshToken,
+  refreshToken,
   getToken,
   handleAuthenticatingPage,
   isLoggedIn,
