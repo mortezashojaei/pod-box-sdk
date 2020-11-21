@@ -1,14 +1,15 @@
 import { init } from "./init";
 import { getStoredData } from "./store";
-import { getUserInfo } from "./getUserInfo";
+import { user } from "./getUserInfo";
 import { handleClose } from "./handleClose";
 import { auth } from "./auth";
 
 const PodBox = {
   init,
   getStoredData,
-  getUserInfo,
   handleClose,
+
+  user,
   auth,
 };
 

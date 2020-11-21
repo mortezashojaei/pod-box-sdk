@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "./auth";
 import { constants } from "./__constants__";
 
-export const getUserInfo = async () => {
+export const getInfo = async () => {
   const token = await getToken();
   const userInfo = await axios.get(
     `${constants.POD_BASE_URL}srv/core/nzh/getUserProfile/`,
@@ -15,3 +15,5 @@ export const getUserInfo = async () => {
   );
   return userInfo;
 };
+
+export const user = { getInfo };
