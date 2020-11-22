@@ -27,6 +27,6 @@ export const addNewItemToStore = ({
       }),
     );
   } else {
-    throw Error;
+    throw Error('item is not in accepted values');
   }
 };

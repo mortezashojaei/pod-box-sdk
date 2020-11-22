@@ -20,7 +20,7 @@ export const refreshToken = async (refresh_token: string) => {
             code_verifier,
 
             grant_type: 'refresh_token',
-            client_id: constants.CLIENT_ID,
+            client_id: getStoredData()[constants.CLIENT_ID_KEY],
           },
         },
       );
@@ -53,30 +53,36 @@ export const getToken = async () => {
   }
 };
 
-export const handleAuthenticatingPage = async ({
-  onSuccess,
-  onError,
-}) => {
-  let params = new URL(window.location.href).searchParams;
-  const code = params.get('code');
-  const data: TokenResultType = await axios.post(
-    `${constants.POD_AUTH_BASE_URL}/oauth2/token`,
-    null,
-    {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+export const handleAuthenticatingPage = async (
+  onSuccess?: () => void,
+  onError?: () => void,
+) => {
+  try {
+    let params = new URL(window.location.href).searchParams;
+    const code = params.get('code');
+    const data: TokenResultType = await axios.post(
+      `${constants.POD_AUTH_BASE_URL}/oauth2/token`,
+      null,
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        params: {
+          code_verifier: getStoredData()[constants.CODE_VERIFIER_KEY],
+          code,
+          grant_type: 'authorization_code',
+          client_id: getStoredData()[constants.CLIENT_ID_KEY],
+          redirect_uri: getStoredData()[constants.REDIRECT_URL_KEY],
+        },
       },
-      params: {
-        code_verifier: getStoredData()[constants.CODE_VERIFIER_KEY],
-        code,
-        grant_type: 'authorization_code',
-        client_id: constants.CLIENT_ID,
-        redirect_uri: getStoredData()[constants.REDIRECT_URL_KEY],
-      },
-    },
-  );
+    );
 
-  setSession(data);
+    setSession(data);
+    if (onSuccess) onSuccess();
+  } catch (error) {
+    if (onError) onError();
+    console.log(error);
+  }
 };
 
 export async function authInit(config: ConfigType) {
@@ -84,6 +90,10 @@ export async function authInit(config: ConfigType) {
   addNewItemToStore({
     key: constants.CODE_VERIFIER_KEY,
     value: codeVerifier,
+  });
+  addNewItemToStore({
+    key: constants.CLIENT_ID_KEY,
+    value: config.clientId,
   });
   addNewItemToStore({
     key: constants.REDIRECT_URL_KEY,
@@ -138,7 +148,7 @@ async function generateCodeChallenge(codeVerifier) {
     .replace(/\//g, '_');
 }
 
-export const isLoggedIn =
+export const isLoggedIn = () =>
   getStoredData() &&
   getStoredData()[constants.TOKEN_KEY] &&
   getStoredData()[constants.REFRESH_TOKEN_KEY];
