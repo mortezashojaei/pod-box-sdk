@@ -36,7 +36,7 @@ export const refreshToken = async (refresh_token: string) => {
 
 export const getToken = async () => {
   const store = getStoredData();
-  if (store[constants.TOKEN_KEY]) {
+  if (store[constants.TOKEN_KEY] && !isTokenExpired()) {
     return store[constants.TOKEN_KEY];
   } else {
     if (store[constants.REFRESH_TOKEN_KEY]) {
@@ -151,7 +151,8 @@ async function generateCodeChallenge(codeVerifier) {
 export const isLoggedIn = () =>
   getStoredData() &&
   getStoredData()[constants.TOKEN_KEY] &&
-  getStoredData()[constants.REFRESH_TOKEN_KEY];
+  getStoredData()[constants.REFRESH_TOKEN_KEY] &&
+  !isTokenExpired();
 
 const getCurrentDateInSeconds = () => Math.floor(Date.now() / 1000);
 
@@ -174,6 +175,9 @@ const setSession = ({ data }: TokenResultType) => {
   });
 };
 
+const isTokenExpired = () =>
+  getCurrentDateInSeconds() >
+  getStoredData()[constants.EXPIRES_IN_KEY] - 20;
 export const auth = {
   refreshToken,
   getToken,
