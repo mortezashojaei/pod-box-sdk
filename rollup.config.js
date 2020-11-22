@@ -1,17 +1,23 @@
-import resolve from "rollup-plugin-node-resolve";
-import commonjs from "rollup-plugin-commonjs";
-import minify from "rollup-plugin-babel-minify";
-import pkg from "./package.json";
+import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
+import minify from 'rollup-plugin-babel-minify';
+import json from 'rollup-plugin-json';
+import pkg from './package.json';
 
 export default [
   {
-    input: "dist/index.js",
+    input: 'dist/index.js',
     output: {
-      name: "useRefScroll",
+      name: 'podBoxSDK',
       file: pkg.browser,
-      format: "iife",
+      format: 'iife',
       sourcemap: true,
     },
-    plugins: [resolve(), commonjs(), minify({ comments: false })],
+    plugins: [
+      resolve(),
+      commonjs(),
+      minify({ comments: false }),
+      json(),
+    ],
   },
 ];
