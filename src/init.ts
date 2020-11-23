@@ -1,5 +1,6 @@
 import { authInit } from './auth';
 import { constants, paramTypes } from './__constants__';
+import { ConfigType } from './types';
 
 export const init = async (config: ConfigType) => {
   try {

@@ -16,6 +16,8 @@
     "version": "./version.sh"
   },
   "browser": "dist/podBoxSDK.min.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mortezashojaei/pod-box-sdk.git"

@@ -1,10 +1,10 @@
-type ConfigType = {
+export type ConfigType = {
   clientId: string;
   redirectUri: string;
   scope: string;
 };
 
-type TokenResultType = {
+export type TokenResultType = {
   data: {
     expires_in: number;
     access_token: string;
