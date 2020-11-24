@@ -192,4 +192,6 @@ export const auth = {
   getToken,
   handleAuthenticatingPage,
   isLoggedIn,
+  isTokenExpired,
+  setSession,
 };
