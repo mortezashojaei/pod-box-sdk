@@ -1,17 +1,7 @@
 import { ConfigType, init } from '../src/init';
 import { constants } from '../src/__constants__';
 
-global.window = Object.create(window);
-const href = 'http://example.com/init';
 const authenticatingPage = 'http://example.com/authenticating';
-const search = '?token=1&second=2&third=3';
-Object.defineProperty(window, 'location', {
-  value: {
-    href,
-    search,
-  },
-});
-
 const ExampleConfig: ConfigType = {
   redirectUri: authenticatingPage,
   scope: 'profile',
@@ -19,6 +9,12 @@ const ExampleConfig: ConfigType = {
 };
 
 describe('init works correctly', () => {
+  window.history.pushState(
+    {},
+    'init',
+    '/init?token=1&second=2&third=3',
+  );
+
   it('local storage is fill', () => {
     init(ExampleConfig);
 
