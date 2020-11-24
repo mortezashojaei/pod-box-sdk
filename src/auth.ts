@@ -3,7 +3,7 @@ import { addNewItemToStore, getStoredData } from './store';
 import { constants } from './__constants__';
 import { ConfigType } from './init';
 
-type TokenResultType = {
+export type TokenResultType = {
   data: {
     expires_in: number;
     access_token: string;
@@ -16,7 +16,9 @@ export const refreshToken = async (refresh_token: string) => {
     const code_verifier = getStoredData()[
       constants.CODE_VERIFIER_KEY
     ];
-    if (code_verifier) {
+    const client_id = getStoredData()[constants.CLIENT_ID_KEY];
+
+    if (code_verifier && client_id) {
       const data: TokenResultType = await axios.post(
         `${constants.POD_AUTH_BASE_URL}/oauth2/token`,
         null,
@@ -29,14 +31,14 @@ export const refreshToken = async (refresh_token: string) => {
             code_verifier,
 
             grant_type: 'refresh_token',
-            client_id: getStoredData()[constants.CLIENT_ID_KEY],
+            client_id,
           },
         },
       );
       setSession(data);
       return data.data.access_token;
     } else {
-      throw ReferenceError('There is no code verifier');
+      throw ReferenceError('There is no code verifier or client id');
     }
   } catch (error) {
     throw error;
@@ -45,19 +47,17 @@ export const refreshToken = async (refresh_token: string) => {
 
 export const getToken = async () => {
   const store = getStoredData();
-  if (store[constants.TOKEN_KEY] && !isTokenExpired()) {
+  if (store && store[constants.TOKEN_KEY] && !isTokenExpired()) {
     return store[constants.TOKEN_KEY];
   } else {
-    if (store[constants.REFRESH_TOKEN_KEY]) {
+    if (store && store[constants.REFRESH_TOKEN_KEY]) {
       const access_token = await refreshToken(
         store[constants.REFRESH_TOKEN_KEY],
       );
 
       return access_token;
     } else {
-      throw new ReferenceError(
-        'Token and RefreshToken is undefinded',
-      );
+      throw ReferenceError('Token and RefreshToken is undefinded');
     }
   }
 };
@@ -69,28 +69,33 @@ export const handleAuthenticatingPage = async (
   try {
     let params = new URL(window.location.href).searchParams;
     const code = params.get('code');
-    const data: TokenResultType = await axios.post(
-      `${constants.POD_AUTH_BASE_URL}/oauth2/token`,
-      null,
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+    if (code) {
+      const data: TokenResultType = await axios.post(
+        `${constants.POD_AUTH_BASE_URL}/oauth2/token`,
+        null,
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          params: {
+            code_verifier: getStoredData()[
+              constants.CODE_VERIFIER_KEY
+            ],
+            code,
+            grant_type: 'authorization_code',
+            client_id: getStoredData()[constants.CLIENT_ID_KEY],
+            redirect_uri: getStoredData()[constants.REDIRECT_URL_KEY],
+          },
         },
-        params: {
-          code_verifier: getStoredData()[constants.CODE_VERIFIER_KEY],
-          code,
-          grant_type: 'authorization_code',
-          client_id: getStoredData()[constants.CLIENT_ID_KEY],
-          redirect_uri: getStoredData()[constants.REDIRECT_URL_KEY],
-        },
-      },
-    );
-
-    setSession(data);
-    if (onSuccess) onSuccess();
+      );
+      setSession(data);
+      if (onSuccess) onSuccess();
+    } else {
+      throw ReferenceError('there is no code');
+    }
   } catch (error) {
     if (onError) onError();
-    console.log(error);
+    throw error;
   }
 };
 
@@ -158,10 +163,12 @@ async function generateCodeChallenge(codeVerifier) {
 }
 
 export const isLoggedIn = () =>
-  getStoredData() &&
-  getStoredData()[constants.TOKEN_KEY] &&
-  getStoredData()[constants.REFRESH_TOKEN_KEY] &&
-  !isTokenExpired();
+  Boolean(
+    getStoredData() &&
+      getStoredData()[constants.TOKEN_KEY] &&
+      getStoredData()[constants.REFRESH_TOKEN_KEY] &&
+      !isTokenExpired(),
+  );
 
 const getCurrentDateInSeconds = () => Math.floor(Date.now() / 1000);
 
