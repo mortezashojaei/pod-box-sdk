@@ -1,6 +1,11 @@
 import { authInit } from './auth';
 import { constants, paramTypes } from './__constants__';
-import { ConfigType } from './types';
+
+export type ConfigType = {
+  clientId: string;
+  redirectUri: string;
+  scope: string;
+};
 
 export const init = async (config: ConfigType) => {
   try {

@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "tsc --outDir dist",
+    "build": "tsc --outDir dist --declaration true",
     "rollup": "rollup -c",
     "ci": "(npm run build && npm run rollup) & wait",
     "prepublishOnly": "npm run ci && npm run rollup",

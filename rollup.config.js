@@ -8,7 +8,7 @@ import pkg from './package.json';
 
 export default [
   {
-    input: 'src/index.js',
+    input: 'dist/index.js',
     output: {
       name: 'podBoxSDK',
       file: pkg.browser,

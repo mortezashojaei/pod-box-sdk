@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { addNewItemToStore, getStoredData } from './store';
 import { constants } from './__constants__';
-import { ConfigType, TokenResultType } from './types';
+import { TokenResultType } from './types';
+import { ConfigType } from './init';
 
 export const refreshToken = async (refresh_token: string) => {
   try {
