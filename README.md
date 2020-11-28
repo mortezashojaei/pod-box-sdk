@@ -37,4 +37,3 @@ npm i pod-box-sdk
 <<<<<<< HEAD
 =======
 ```
->>>>>>> 45fb2574aa8eb1b00faa3ffd25843b47082b2a0d
