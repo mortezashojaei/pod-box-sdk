@@ -1,3 +1,11 @@
+```html
+<h1>PodBox SDK</h1>
+<p align="center">
+  <img src="./PODBOX-LOGO.png" width="300px" height="300px
+  title="LOGO" />
+</p>
+```
+
 ## Installation - NPM
 
 ```sh
@@ -16,8 +24,11 @@ npm i pod-box-sdk
 > getStoredData
 > handleClose
 > user
+
     __ getInfo
+
 > auth
+
     __ refreshToken
     __ getToken
     __ handleAuthenticatingPage
