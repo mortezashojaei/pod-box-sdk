@@ -1,8 +1,9 @@
-<h1>PodBox SDK</h1>
 <p align="center">
-  <img src="./PODBOX-LOGO.png" width="300px" height="300px
+  <img src="./PODBOX-LOGO.png?raw=true" width="300px" height="300px
   title="LOGO" />
 </p>
+
+<h1>PodBox SDK</h1>
 
 ## Installation - NPM
 
