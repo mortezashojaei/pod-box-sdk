@@ -19,7 +19,7 @@ npm i pod-box-sdk
 ```
 
 ## modules
-
+```
 > init
 > getStoredData
 > handleClose
@@ -35,3 +35,7 @@ npm i pod-box-sdk
     __ isLoggedIn
     __ isTokenExpired
     __ setSession
+<<<<<<< HEAD
+=======
+```
+>>>>>>> 45fb2574aa8eb1b00faa3ffd25843b47082b2a0d
