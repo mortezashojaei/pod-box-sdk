@@ -13,7 +13,7 @@ npm i pod-box-sdk
 ## Installation - Browser
 
 ```html
-<script src="https://unpkg.com/pod-box-sdk@1.1.0/dist/podBoxSDK.min.js"></script>
+<script src="https://unpkg.com/pod-box-sdk@1.2.0/dist/podBoxSDK.min.js"></script>
 ```
 
 ## modules
