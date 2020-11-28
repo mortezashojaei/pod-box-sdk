@@ -1,11 +1,26 @@
 ## Installation - NPM
 
 ```sh
-npm i use-ref-scroll
+npm i pod-box-sdk
 ```
 
 ## Installation - Browser
 
 ```html
-<script src="https://unpkg.com/use-ref-scroll@1.0.2/dist/useRefScroll.min.js"></script>
+<script src="https://unpkg.com/pod-box-sdk@1.1.0/dist/podBoxSDK.min.js"></script>
 ```
+
+## modules
+
+> init
+> getStoredData
+> handleClose
+> user
+    __ getInfo
+> auth
+    __ refreshToken
+    __ getToken
+    __ handleAuthenticatingPage
+    __ isLoggedIn
+    __ isTokenExpired
+    __ setSession
