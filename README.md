@@ -1,6 +1,5 @@
 <p align="center">
-  <img src="./PODBOX-LOGO.png?raw=true" width="300px" height="300px
-  title="LOGO" />
+  <img src="./PODBOX-LOGO.png?raw=true" width="300px" height="300px title="LOGO" />
 </p>
 
 <h1>PodBox SDK</h1>
@@ -34,6 +33,4 @@ npm i pod-box-sdk
     __ isLoggedIn
     __ isTokenExpired
     __ setSession
-<<<<<<< HEAD
-=======
 ```
