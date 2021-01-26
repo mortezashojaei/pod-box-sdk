@@ -166,8 +166,7 @@ export const isLoggedIn = () =>
   Boolean(
     getStoredData() &&
       getStoredData()[constants.TOKEN_KEY] &&
-      getStoredData()[constants.REFRESH_TOKEN_KEY] &&
-      !isTokenExpired(),
+      getStoredData()[constants.REFRESH_TOKEN_KEY],
   );
 
 const getCurrentDateInSeconds = () => Math.floor(Date.now() / 1000);
