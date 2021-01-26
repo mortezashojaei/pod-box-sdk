@@ -1,6 +1,6 @@
 {
   "name": "pod-box-sdk",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "PodBox Software Development Kit",
   "main": "dist/index.js",
   "files": [
